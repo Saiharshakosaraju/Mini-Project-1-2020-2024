@@ -5,12 +5,13 @@ using namespace std;
 // DECLARATIONS ---------------------------------------------------------------------------------------------
 namespace dsa
 {
-    template <typename type> class Node
+    template <typename type>
+    class Node
     {
     public:
         // PROPERTIES
         type data;
-        Node<type>*next;
+        Node<type> *next;
 
         // CONSTRUCTOR
         Node() : data(NULL), next(NULL){};
@@ -23,10 +24,11 @@ namespace dsa
 
         void setNext(Node<type> *node);
 
-        Node<type>getNext();
+        Node<type> getNext();
     };
 
-    template <typename type> class LinkedList
+    template <typename type>
+    class LinkedList
     {
     public:
         // PROPERTIES
@@ -103,7 +105,6 @@ dsa::Node<type> dsa::Node<type>::getNext()
     return this->next;
 }
 
-
 // Insert at Beginning
 template <typename type>
 void dsa::LinkedList<type>::beginInsert(type data)
@@ -119,17 +120,17 @@ void dsa::LinkedList<type>::beginInsert(type data)
         this->size++;
         return;
     }
-    else{
+    else
+    {
         // LIST IS NOT EMPTY
         newNode->next = this->head;
         this->head = newNode;
         this->size++;
         return;
     }
-    
 }
 
-// Insert at End 
+// Insert at End
 template <typename type>
 void dsa::LinkedList<type>::lastInsert(type data)
 {
@@ -144,7 +145,8 @@ void dsa::LinkedList<type>::lastInsert(type data)
         this->size++;
         return;
     }
-    else{
+    else
+    {
         this->tail->next = newNode;
         this->tail = this->tail->next;
         this->size++;
@@ -157,38 +159,40 @@ void dsa::LinkedList<type>::locInsert(type data, int loc)
 {
     dsa::Node<type> *newNode = new dsa::Node<type>(data);
     dsa::Node<type> *temp = this->head;
-    if(this->size == 0){
+    if (this->size == 0)
+    {
         this->head = newNode;
         this->tail = newNode;
-        // this->size++;
     }
-    else if(loc>this->size){
+    else if (loc > this->size)
+    {
         this->tail->next = newNode;
-        this->tail=this->tail->next;
-        // this->size++;
+        this->tail = this->tail->next;
     }
-    else{
-        if(loc==1){
+    else
+    {
+        if (loc == 1)
+        {
             newNode->next = temp;
-            temp=newNode;
+            temp = newNode;
         }
-        else{
-            for(int i=1;i<loc-1;i++){
-                temp=temp->next;
+        else
+        {
+            for (int i = 1; i < loc - 1; i++)
+            {
+                temp = temp->next;
             }
-            newNode->next=temp->next;
-            temp->next=newNode;
+            newNode->next = temp->next;
+            temp->next = newNode;
         }
     }
     this->size++;
-
 }
 
-// Begin delete 
+// Begin delete
 template <typename type>
 void dsa::LinkedList<type>::beginDelete()
 {
-    // Node *temp = head;
     dsa::Node<type> *temp = this->head;
     if (this->head != NULL)
     {
@@ -202,23 +206,20 @@ void dsa::LinkedList<type>::beginDelete()
     free(temp);
 }
 
-
 template <typename type>
 void dsa::LinkedList<type>::lastDelete()
 {
     dsa::Node<type> *temp = this->head;
     dsa::Node<type> *temp1 = this->head;
-    // Node *temp = head;
-    // Node *temp1 = head;
     if (temp == NULL)
     {
         cout << "List is empty\n";
-        this->size=0;
+        this->size = 0;
         return;
     }
     else if (this->head->next == NULL)
     {
-        temp=this->head;
+        temp = this->head;
         this->head = NULL;
         this->tail = NULL;
         this->size--;
@@ -243,49 +244,57 @@ void dsa::LinkedList<type>::lastDelete()
 template <typename type>
 void dsa::LinkedList<type>::locDelete(int loc)
 {
-    // Node *temp = head;
     dsa::Node<type> *temp = this->head;
     dsa::Node<type> *temp1 = this->head;
 
-    if(loc!=0){
-        if(this->size==0){
-            cout<<"List is Empyt\n";
+    if (loc != 0)
+    {
+        if (this->size == 0)
+        {
+            cout << "List is Empty\n";
         }
-        else if(loc>this->size){
-            if(temp->next==NULL){
-                this->head=NULL;
-                this->tail==NULL;
-                this->size=0;
+        else if (loc > this->size)
+        {
+            if (temp->next == NULL)
+            {
+                this->head = NULL;
+                this->tail == NULL;
+                this->size = 0;
                 free(temp);
             }
-            else{
-                while(temp->next!=NULL){
-                    temp1=temp;
-                    temp=temp->next;
+            else
+            {
+                while (temp->next != NULL)
+                {
+                    temp1 = temp;
+                    temp = temp->next;
                 }
-                temp1->next=NULL;
-                this->tail=temp1;
+                temp1->next = NULL;
+                this->tail = temp1;
                 this->size--;
                 free(temp);
             }
         }
-        else{
-            if(loc==1){
-                this->head=this->head->next;
+        else
+        {
+            if (loc == 1)
+            {
+                this->head = this->head->next;
             }
-            else{
-                for(int i=1;i<loc;i++){
-                    temp1=temp;
-                    temp=temp->next;
+            else
+            {
+                for (int i = 1; i < loc; i++)
+                {
+                    temp1 = temp;
+                    temp = temp->next;
                 }
-                temp1->next=temp->next;
+                temp1->next = temp->next;
                 free(temp);
             }
             this->size--;
         }
     }
 }
-
 
 template <typename type>
 void dsa::LinkedList<type>::display()
@@ -297,9 +306,8 @@ void dsa::LinkedList<type>::display()
         cout << traverseNode->data << " -> ";
         traverseNode = traverseNode->next;
     }
-    cout<<"NULL\n";
+    cout << "NULL\n";
 }
-
 
 // Make Cycle
 template <typename type>
@@ -313,14 +321,12 @@ void dsa::LinkedList<type>::makeCycle(int pos)
         if (count == pos)
         {
             start = temp;
-            // break;
         }
         temp = temp->next;
         count++;
     }
     temp->next = start;
 }
-
 
 template <typename type>
 bool dsa::LinkedList<type>::isCycle()
@@ -343,29 +349,38 @@ bool dsa::LinkedList<type>::isCycle()
 template <typename type>
 bool dsa::LinkedList<type>::isSorted()
 {
-    bool flag=1;
+    bool flag = 1;
     dsa::Node<type> *temp = this->head;
-    if(temp==NULL || temp->next==NULL){
-        flag=1;
+    if (temp == NULL || temp->next == NULL)
+    {
+        flag = 1;
     }
-    else{
-        if(temp->next!=NULL){
-            if(temp->data < temp->next->data){
-                while(temp->next!=NULL){
-                    if(temp->data > temp->next->data){
-                        flag=0;
+    else
+    {
+        if (temp->next != NULL)
+        {
+            if (temp->data < temp->next->data)
+            {
+                while (temp->next != NULL)
+                {
+                    if (temp->data > temp->next->data)
+                    {
+                        flag = 0;
                         break;
                     }
-                    temp=temp->next;
+                    temp = temp->next;
                 }
             }
-            else{
-                while(temp->next!=NULL){
-                    if(temp->data < temp->next->data){
-                        flag=0;
+            else
+            {
+                while (temp->next != NULL)
+                {
+                    if (temp->data < temp->next->data)
+                    {
+                        flag = 0;
                         break;
                     }
-                    temp=temp->next;
+                    temp = temp->next;
                 }
             }
         }
@@ -380,7 +395,8 @@ void dsa::LinkedList<type>::removeCycle()
     dsa::Node<type> *rabbit = this->head;
     if (head != NULL && head->next != NULL && head->next->next != NULL)
     {
-        do{
+        do
+        {
             tortoise = tortoise->next;
             rabbit = rabbit->next->next;
         } while (rabbit != tortoise);
@@ -394,7 +410,6 @@ void dsa::LinkedList<type>::removeCycle()
     }
 }
 
-
 template <typename type>
 int dsa::LinkedList<type>::Size()
 {
@@ -404,45 +419,40 @@ int dsa::LinkedList<type>::Size()
 template <typename type>
 void dsa::LinkedList<type>::intersect(dsa::Node<type> head1, int pos)
 {
-    int count=0;
     dsa::Node<type> *temp1 = this->head;
     dsa::Node<type> *temp2 = &head1;
-    // size+=l-pos+1;
     pos--;
     while (pos--)
     {
-        if(temp1!=NULL)
+        if (temp1 != NULL)
             temp1 = temp1->next;
     }
     while (temp2->next != NULL)
     {
-        count++;
         temp2 = temp2->next;
     }
     temp2->next = temp1;
 }
 
-
 template <typename type>
 void dsa::LinkedList<type>::reverse()
 {
-    dsa::Node<type> *prev = this->head;
-    dsa::Node<type> *current = this->head->next;
+    dsa::Node<type> *prev = NULL;
+    dsa::Node<type> *current = this->head;
+    dsa::Node<type> *nextNode;
     if (this->head == NULL || this->head->next == NULL)
     {
         return;
     }
     while (current != NULL)
     {
-        dsa::Node<type> *nextNode = current->next;
+        nextNode = current->next;
         current->next = prev;
         prev = current;
         current = nextNode;
     }
-    this->head->next = NULL;
     this->head = prev;
 }
-
 
 template <typename type>
 bool dsa::LinkedList<type>::isKey(type key)
@@ -470,17 +480,19 @@ bool dsa::LinkedList<type>::isConnected(dsa::Node<type> head1)
 {
     dsa::Node<type> *temp1 = this->head;
     dsa::Node<type> *temp2 = &head1;
-    int l1=0,l2=0;
-    while(temp1!=NULL){
+    int l1 = 0, l2 = 0;
+    while (temp1 != NULL)
+    {
         l1++;
-        temp1=temp1->next;
+        temp1 = temp1->next;
     }
-    while(temp2!=NULL){
+    while (temp2 != NULL)
+    {
         l2++;
-        temp2=temp2->next;
+        temp2 = temp2->next;
     }
-    temp1=this->head;
-    temp2=&head1;
+    temp1 = this->head;
+    temp2 = &head1;
     int len;
     if (l1 < l2)
     {
@@ -493,7 +505,7 @@ bool dsa::LinkedList<type>::isConnected(dsa::Node<type> head1)
     else
     {
         len = l1 - l2;
-        while (len>0)
+        while (len > 0)
         {
             temp1 = temp1->next;
             len--;
@@ -511,31 +523,34 @@ bool dsa::LinkedList<type>::isConnected(dsa::Node<type> head1)
     return false;
 }
 
-
-
-
-// Sort the linked list
 template <typename type>
-void dsa::LinkedList<type>::sort(){ 
-  dsa::Node<type> *current = this->head, *index = NULL;
-  int temp;
-  if (this->head == NULL) {
-    return;
-  } else {
-    while (current != NULL) {
-      // index points to the node next to current
-      index = current->next;
-
-  	while (index != NULL) {
-        if (current->data > index->data) {
-          temp = current->data;
-          current->data = index->data;
-          index->data = temp;
-    	  }
-    	  index = index->next;
-  	}
-  	current = current->next;
+void dsa::LinkedList<type>::sort()
+{
+    dsa::Node<type> *current = this->head;
+    dsa::Node<type> *index = NULL;
+    int temp;
+    if (this->head == NULL)
+    {
+        return;
     }
-  }
-}
+    else
+    {
+        while (current != NULL)
+        {
+            // index points to the node next to current
+            index = current->next;
 
+            while (index != NULL)
+            {
+                if (current->data > index->data)
+                {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        }
+    }
+}
