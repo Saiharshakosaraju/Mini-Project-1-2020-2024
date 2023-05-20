@@ -17,14 +17,6 @@ namespace dsa
         Node() : data(NULL), next(NULL){};
         Node(type x) : data(x), next(NULL){};
 
-        // CLASS FUNCTIONS
-        void setData(type data);
-
-        type getData();
-
-        void setNext(Node<type> *node);
-
-        Node<type> getNext();
     };
 
     template <typename type>
